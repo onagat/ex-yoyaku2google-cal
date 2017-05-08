@@ -12,6 +12,8 @@ function run() {
     if(message.getDate().getTime() < prop.last_execution) return;
 
     const body = message.getBody().split('変更前の予約内容');
+    if(body[0].indexOf('自由席を予約しました') !== -1) return;
+
     const reservation = scrape(body[0]);
 
     if(body.length === 2) {
