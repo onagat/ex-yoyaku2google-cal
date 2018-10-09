@@ -3,7 +3,13 @@ function run() {
   const calendar = CalendarApp.getCalendarById(prop.calendar_id);
 
   // Push Gmail messages into an array
-  const threads = GmailApp.search('yoyaku@expy.jp subject:{新幹線予約内容, 新幹線予約変更内容}');
+  var searchWord = 'yoyaku@expy.jp subject:{新幹線予約内容, 新幹線予約変更内容}';
+  const last_execution = prop.last_execution;     // last execution time
+  if( last_execution ) {                          // append yesterday to search word
+    const nowdate = (new Date( parseFloat(prop.last_execution) - 86400000 )).toLocaleDateString();
+    searchWord = searchWord + ' after:' + nowdate;
+  }
+  const threads = GmailApp.search(searchWord);
   const messages = threads.reduceRight(function(a, b) {
     return a.concat(b.getMessages());
   }, []);
