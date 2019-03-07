@@ -77,7 +77,7 @@ function deleteEvent(calendar, reservation) {
 }
 
 function scrape(text, messageDate) {
-  const reserved = text.indexOf('自由席') === -1
+  const reserved = text.indexOf('自由席を予約しました。') === -1
   if (reserved) {
     return scrapeReserved(text, messageDate)
   } else {
