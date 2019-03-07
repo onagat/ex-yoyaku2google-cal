@@ -5,9 +5,10 @@ function run() {
   // Push Gmail messages into an array
   var searchWord = 'yoyaku@expy.jp subject:{新幹線予約内容, 新幹線予約変更内容}';
   const last_execution = prop.last_execution;     // last execution time
-  if( last_execution ) {                          // append yesterday to search word
-    const nowdate = (new Date( parseFloat(prop.last_execution) - 86400000 )).toLocaleDateString();
-    searchWord = searchWord + ' after:' + nowdate;
+  if( last_execution ) {
+    const lastExeDate = new Date(parseFloat(prop.last_execution));
+    const lastExeTime = Math.floor((lastExeDate.getTime()/1000)).toString();
+    searchWord = searchWord + ' after:' + lastExeTime;
   }
   const threads = GmailApp.search(searchWord);
   const messages = threads.reduceRight(function(a, b) {
