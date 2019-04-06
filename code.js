@@ -73,8 +73,12 @@ function deleteEvent(calendar, reservation) {
   Logger.log('delete')
   Logger.log(reservation)
   const event = getEvent(calendar, reservation)
-  event.deleteEvent();
-  Logger.log('success')
+  if(event){
+    event.deleteEvent()
+    Logger.log('success')
+  }else{
+    Logger.log('old event was not found')
+  }
 }
 
 function scrape(text, messageDate) {
